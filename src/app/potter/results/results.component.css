@@ -8,3 +8,32 @@
     
     height: 7em;
 }
+
+
+
+.outer-wrapper {
+    max-width: 100%;
+    max-height: 100%;
+}
+.table-wrapper {
+    overflow-y: scroll;
+    height: fit-content;
+    max-height: 87vh;
+    margin-top: 22px;
+    margin: 15px;
+    padding-bottom: 20px;
+}
+
+table th{
+    position: sticky;     
+    top: 0px;
+    background-color: white;
+    font-weight: bold;
+    font-size: 20px;
+} 
+
+table th, table td {    
+    padding: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;   
+}

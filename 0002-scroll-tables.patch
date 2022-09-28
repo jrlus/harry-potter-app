@@ -1,0 +1,138 @@
+From b3d71288a16e2d82c61e5469d579f7efa2979b90 Mon Sep 17 00:00:00 2001
+From: jrlus <jrlus1705@gmail.com>
+Date: Wed, 28 Sep 2022 17:32:14 -0400
+Subject: [PATCH 2/2] scroll-tables
+
+---
+ .../character-house.component.css             | 28 ++++++++
+ .../character-house.component.html            | 65 ++++++++++---------
+ src/app/potter/results/results.component.css  |  1 +
+ 3 files changed, 63 insertions(+), 31 deletions(-)
+
+diff --git a/src/app/potter/character-house/character-house.component.css b/src/app/potter/character-house/character-house.component.css
+index a265713..81ba5d7 100644
+--- a/src/app/potter/character-house/character-house.component.css
++++ b/src/app/potter/character-house/character-house.component.css
+@@ -18,4 +18,32 @@
+ 
+ select option {
+     padding: 20px;
++}
++
++
++.outer-wrapper {
++    max-width: 100%;
++    max-height: 100%;
++}
++.table-wrapper {
++    overflow-y: scroll;
++    height: fit-content;
++    max-height: 87vh;
++    margin-top: 22px;
++    margin: 15px;
++    padding-bottom: 20px;
++}
++
++table th{
++    position: sticky;     
++    top: 0px;
++    background-color: white;
++    font-weight: bold;
++    font-size: 20px;
++} 
++
++table th, table td {    
++    padding: 15px;
++    padding-top: 5px;
++    padding-bottom: 5px;   
+ }
+\ No newline at end of file
+diff --git a/src/app/potter/character-house/character-house.component.html b/src/app/potter/character-house/character-house.component.html
+index 00480f5..6c6ba90 100644
+--- a/src/app/potter/character-house/character-house.component.html
++++ b/src/app/potter/character-house/character-house.component.html
+@@ -1,34 +1,37 @@
+ <!-- TODO: Configurar en un único componente 'results.component' -->
+ <h3>Selected House</h3>
+-<hr/>
+-<div class="table-responsive">
+-    <table class="table table-hover align-middle">
+-        <thead>
+-            <tr>
+-                <th scope="col">Name</th>
+-                <th scope="col">Species</th>
+-                <th scope="col">Gender</th>                
+-                <th scope="col">
+-                    <select class="select" [(ngModel)]="selected" #key="ngModel" (ngModelChange)="searchHouse(key.value)">
+-                        <option selected>Select House</option>
+-                        <option *ngFor="let item of house">{{ item | titlecase }}</option>
+-                    </select>
+-                </th>
+-                <th scope="col">Age</th>
+-                <th scope="col">Image</th>
+-            </tr>
+-        </thead>
+-        <tbody>
+-            <!-- TODO: Paginación pendiente -->
+-            <tr *ngFor="let item of resultados" class="list">
+-                <td>{{ item['name'] }}</td>
+-                <td>{{ item['species'] }}</td>
+-                <td>{{ item['gender'] }}</td>
+-                <td>{{ item['house'] }}</td>
+-                <!-- TODO: Calcular edad tomando 'dateOfBirth' -->
+-                <td>{{ getYear(item['yearOfBirth']) }}</td>
+-                <td><img [src]="item['image']" onerror="this.style.display='none'" class="card-img-top img"></td>
+-            </tr>
+-        </tbody>
+-    </table>
++<hr />
++<div class="outer-wrapper">
++    <div class="table-wrapper">
++        <table class="table table-hover align-middle">
++            <thead>
++                <tr>
++                    <th scope="col">Name</th>
++                    <th scope="col">Species</th>
++                    <th scope="col">Gender</th>
++                    <th scope="col">
++                        <select class="select" [(ngModel)]="selected" #key="ngModel"
++                            (ngModelChange)="searchHouse(key.value)">
++                            <option selected>Select House</option>
++                            <option *ngFor="let item of house">{{ item | titlecase }}</option>
++                        </select>
++                    </th>
++                    <th scope="col">Age</th>
++                    <th scope="col">Image</th>
++                </tr>
++            </thead>
++            <tbody>
++                <!-- TODO: Paginación pendiente -->
++                <tr *ngFor="let item of resultados" class="list">
++                    <td>{{ item['name'] }}</td>
++                    <td>{{ item['species'] }}</td>
++                    <td>{{ item['gender'] }}</td>
++                    <td>{{ item['house'] }}</td>
++                    <!-- TODO: Calcular edad tomando 'dateOfBirth' -->
++                    <td>{{ getYear(item['yearOfBirth']) }}</td>
++                    <td><img [src]="item['image']" onerror="this.style.display='none'" class="card-img-top img"></td>
++                </tr>
++            </tbody>
++        </table>
++    </div>
+ </div>
+\ No newline at end of file
+diff --git a/src/app/potter/results/results.component.css b/src/app/potter/results/results.component.css
+index 7eba30e..b7ec41b 100644
+--- a/src/app/potter/results/results.component.css
++++ b/src/app/potter/results/results.component.css
+@@ -10,6 +10,7 @@
+ }
+ 
+ 
++
+ .outer-wrapper {
+     max-width: 100%;
+     max-height: 100%;
+-- 
+2.25.1
+
